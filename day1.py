@@ -1,3 +1,5 @@
+import unittest
+
 book = {"0":"0",
         "1":"1",
         "2":"2",
@@ -50,34 +52,34 @@ def sumvalues(input):
         value += (int(findcalibrationvalue(string)))
     return value
 
-print(findfirstdigit("asdfewa1aetwear43253"))
-assert findfirstdigit("asdfewa1aetwear43253") == "1"
-
-assert findlastdigit("asdfewa1aetwear43253") == "3"
-
-assert findfirstdigit("five3nine") == "5"
-assert findlastdigit("five3nine") == "9"
-
-assert findcalibrationvalue("1abc2") == "12"
-assert findcalibrationvalue("pqr3stu8vwx") == "38"
-assert findcalibrationvalue("a1b2c3d4e5f") == "15"
-assert findcalibrationvalue("treb7uchet") == "77"
-
-assert sumvalues("""1abc2
-    pqr3stu8vwx
-    a1b2c3d4e5f
-    treb7uchet""") == 142
-
-assert sumvalues("""two1nine
-eightwothree
-abcone2threexyz
-xtwone3four
-4nineeightseven2
-zoneight234
-7pqrstsixteen""") == 281
-
-
 with open("day1.txt") as f:
    data = f.read()#
 
-print(sumvalues(data))
+if __name__ == "__main__":
+    print(sumvalues(data))
+
+class Tests(unittest.TestCase):
+
+    def tests(self):
+        assert findfirstdigit("asdfewa1aetwear43253") == "1"
+
+        assert findlastdigit("asdfewa1aetwear43253") == "3"
+
+        assert findfirstdigit("five3nine") == "5"
+        assert findlastdigit("five3nine") == "9"
+
+        assert findcalibrationvalue("1abc2") == "12"
+        assert findcalibrationvalue("pqr3stu8vwx") == "38"
+        assert findcalibrationvalue("a1b2c3d4e5f") == "15"
+        assert findcalibrationvalue("treb7uchet") == "77"
+        assert sumvalues("""1abc2
+                            pqr3stu8vwx
+                            a1b2c3d4e5f
+                            treb7uchet""") == 142
+        assert sumvalues("""two1nine
+                            eightwothree
+                            abcone2threexyz
+                            xtwone3four
+                            4nineeightseven2
+                            zoneight234
+                            7pqrstsixteen""") == 281
