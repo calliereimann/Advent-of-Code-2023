@@ -1,5 +1,9 @@
 import unittest
 
+totalred = 12
+totalgreen=13
+totalblue=14
+
 def interpretevent(string):
     pass
 
