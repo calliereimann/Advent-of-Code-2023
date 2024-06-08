@@ -1,14 +1,22 @@
 import unittest
 
-totalred = 12
-totalgreen=13
-totalblue=14
+colorlimits = {'red': 12, 'green':13, 'blue':14} #number of balls of each color
 
 def interpretevent(string):
-    pass
+    #takes event, returns true if all values are within the limits
+    list = string.split(",")
+    output=True
+    for item in list:
+        item = item.strip()
+        number_chunk, color_chunk = item.split(" ")
+        if color_chunk in colorlimits.keys():
+            output = output and (number_chunk <= colorlimits[color_chunk])
+    return output
+
+    
 
 def parse_properties(input):
-    #takes string, returns game ID, reds, blues, etc
+    #takes string, returns game ID, set of events
     list = input.splitlines()
     output = {}
     # [id, events] = line.split(',')
@@ -27,4 +35,5 @@ class Tests(unittest.TestCase):
         assert parse_properties("") == {}
         print(parse_properties("Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green"))
         assert parse_properties("Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green") == {"1": ["3 blue, 4 red", "1 red, 2 green, 6 blue", "2 green"]}
+    
 
