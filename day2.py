@@ -37,6 +37,16 @@ def evaluategame(eventlist):
         gameValid = gameValid and interpretevent(event)
     return gameValid
 
+def scoretally(data):
+    #takes in the entire input, checks if each one is good and if so adds its ID to the tally
+    score = 0
+    list = parse_properties(data).items()
+    for tuple in list:
+        (id, game) = tuple
+        if evaluategame(game):
+            score += int(id)
+    return score
+
 
     
 class Tests(unittest.TestCase):
@@ -54,6 +64,9 @@ class Tests(unittest.TestCase):
         assert evaluategame([]) == True
         assert evaluategame(["3 blue, 4 red", "1 red, 2 green, 6 blue", "2 green"]) == True
     
-if __name__ == '__main__':
-    unittest.main()
+with open("day2.txt") as f:
+   data = f.read()#
+
+if __name__ == "__main__":
+    print(scoretally(data))
 
