@@ -15,7 +15,18 @@ def interpretevent(eventstring):
             eventValid = eventValid and (int(number_chunk) <= colorlimits[color_chunk]) #if any of them are false, output remains false for the rest of the event interpretation loop
     return eventValid
 
-    
+def minpossible(eventstring):
+    #takes event, returns dict in order red, green, blue of minimum balls needed for the event to be possible
+    list = eventstring.split(",")
+    color = {'red':0, "green":0, "blue":0}
+    for item in list:
+        item = item.strip()
+        if item=="":
+            continue
+        number_chunk, color_chunk = item.split(" ")
+        if color_chunk in color.keys():
+            color[color_chunk] += int(number_chunk)
+    return color
 
 def parse_properties(input):
     #takes string, returns dictionary with key = game ID, data = set of events
@@ -63,6 +74,9 @@ class Tests(unittest.TestCase):
     def test_gamechecker(self):
         assert evaluategame([]) == True
         assert evaluategame(["3 blue, 4 red", "1 red, 2 green, 6 blue", "2 green"]) == True
+
+    def test_minpossible(self):
+        assert minpossible("3 blue, 4 red") == {'red':4, 'green':0, 'blue':3}
     
 with open("day2.txt") as f:
    data = f.read()#
