@@ -58,8 +58,32 @@ def scoretally(data):
             score += int(id)
     return score
 
+def dictionarystitch(dict1, dict2):
+    #combines two dictionaries together in a "smart" way, requires all values to be the same data type
+    output = {}
+    for item in dict1:
+        output[item] = dict1[item]
+    for item in dict2:
+        if item in output:
+            output[item] = max(output[item], dict2[item])
+        else:
+            output[item] = dict2[item]
+    return output 
 
+def powerset(eventlist):
+    total = {}
+    for event in eventlist:
+        total.update(dictionarystitch(total, minpossible(event)))
+    return total['red'] * total['green'] * total['blue']
     
+def totalpower(data):
+    score = 0
+    list = parse_properties(data).items()
+    for tuple in list:
+        (discard, game) = tuple
+        score += powerset(game)
+    return score
+
 class Tests(unittest.TestCase):
     def test_getproperties(self):
         assert parse_properties("") == {}
@@ -77,10 +101,18 @@ class Tests(unittest.TestCase):
 
     def test_minpossible(self):
         assert minpossible("3 blue, 4 red") == {'red':4, 'green':0, 'blue':3}
+        assert minpossible("") == {'red':0, 'green':0, 'blue':0}
+
+    def test_powercheck(self):
+        assert powerset(["3 blue, 4 red", "1 red, 2 green, 6 blue", "2 green"]) == 48
+        assert powerset(["1 blue, 2 green", "3 green, 4 blue, 1 red", "1 green, 1 blue"]) == 12
+        assert powerset(["8 green, 6 blue, 20 red", "5 blue, 4 red, 13 green", "5 green, 1 red"]) == 1560
+        assert powerset(["1 green, 3 red, 6 blue", "3 green, 6 red", "3 green, 15 blue, 14 red"]) == 630
+    
     
 with open("day2.txt") as f:
    data = f.read()#
 
 if __name__ == "__main__":
-    print(scoretally(data))
+    print(totalpower(data))
 
