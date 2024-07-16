@@ -1,9 +1,5 @@
 import unittest
-
-#Part 1 code
-
-#My first idea is to scan the data into a 2d matrix, comparing coordinates for each number, but that would be absurdly computationally expensive. Not impossible by any means, but deeply painful. Maybe scanning as tuples? Line number, head, length, value? Where Value is either an int or a symbol. Maybe list of things considered 'valid' symbols. Dictionary of Dictionaries, maybe? Each row is a key for the first dictionary, then the column is the secondary key? numbers never wrap, so we can give them clear and precise row numbers, too
-
+#code used in both sections
 def scanline(line):
     symbols = {}
     numbers = {}
@@ -28,8 +24,6 @@ def scanline(line):
     print(output)
     return output
 
-#but the problem now is how to efficiently scan through the dictionaries for things nearby each other - well, i guess i don't actually care about efficiency as long as things are correct? but it just grates at me to have something that burns a ton of processing power
-
 def dictify(data):
     output = []
     list = data.splitlines()
@@ -38,6 +32,16 @@ def dictify(data):
         output.append(scanline(list[index])) 
         index +=1 
     return output #converting the original data into a list of tuples, one per row of the initial input - each tuple has a numbers chunk and a symbols chunk
+
+#Part 1 code
+
+#My first idea is to scan the data into a 2d matrix, comparing coordinates for each number, but that would be absurdly computationally expensive. Not impossible by any means, but deeply painful. Maybe scanning as tuples? Line number, head, length, value? Where Value is either an int or a symbol. Maybe list of things considered 'valid' symbols. Dictionary of Dictionaries, maybe? Each row is a key for the first dictionary, then the column is the secondary key? numbers never wrap, so we can give them clear and precise row numbers, too
+
+
+
+#but the problem now is how to efficiently scan through the dictionaries for things nearby each other - well, i guess i don't actually care about efficiency as long as things are correct? but it just grates at me to have something that burns a ton of processing power
+
+
 
 def process(line, lastline, nextline = None):
     numbers, symbols = line
